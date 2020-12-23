@@ -188,6 +188,7 @@ func (l *LogzioSender) isEnoughDiskSpace() {
 // Send the payload to logz.io
 func (l *LogzioSender) Send(payload []byte) error {
 	if !l.fullDisk {
+		l.debugLog("logziosender.go: enqueuing payload %+v", string(payload))
 		_, err := l.queue.Enqueue(payload)
 		return err
 	}
@@ -288,6 +289,7 @@ func (l *LogzioSender) dequeueUpToMaxBatchSize() int {
 	)
 	for bufSize < maxSize && err == nil {
 		item, err := l.queue.Dequeue()
+		l.debugLog("logziosender.go: dequeued item '%+v'\n", item)
 		if err != nil {
 			l.debugLog("queue state: %s\n", err)
 		}
