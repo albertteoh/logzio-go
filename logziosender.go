@@ -212,6 +212,7 @@ func (l *LogzioSender) tryToSendLogs() int {
 		l.debugLog("logziosender.go: Error sending logs to %s %s\n", l.url, err)
 		return httpError
 	}
+	l.debugLog("logziosender.go: Sent '%s' over the wire to %s\n", l.buf.String(), l.url)
 
 	defer resp.Body.Close()
 	statusCode := resp.StatusCode
