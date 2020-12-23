@@ -30,8 +30,8 @@
   version = "2.0.1"
 
 [[constraint]]
-  branch = "master"
-  name = "github.com/logzio/logzio-go"
+  branch = "debug"
+  name = "github.com/albertteoh/logzio-go"
 
 [[constraint]]
   name = "github.com/shirou/gopsutil"

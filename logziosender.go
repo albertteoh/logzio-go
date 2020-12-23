@@ -289,19 +289,19 @@ func (l *LogzioSender) dequeueUpToMaxBatchSize() int {
 	)
 	for bufSize < maxSize && err == nil {
 		item, err := l.queue.Dequeue()
-		l.debugLog("logziosender.go: dequeued item '%+v'\n", item)
+		l.debugLog("logziosender.go: dequeued item key='%s' value='%s'\n", string(item.Key), string(item.Value))
 		if err != nil {
 			l.debugLog("queue state: %s\n", err)
 		}
 		if item != nil {
 			// NewLine is appended tp item.Value
 			if len(item.Value)+bufSize+1 > maxSize {
-				l.debugLog("logziosender.go: %d exceeds max %d for item %+v\n", len(item.Value)+bufSize+1, maxSize, item.Value)
+				l.debugLog("logziosender.go: %d exceeds max %d for item %s\n", len(item.Value)+bufSize+1, maxSize, string(item.Value))
 				break
 			}
 			bufSize += len(item.Value)
-			l.debugLog("logziosender.go: Adding item %d with size %d (total buffSize: %d)\n",
-				item.ID, len(item.Value), bufSize)
+			l.debugLog("logziosender.go: Adding item %d with size %d (total buffSize: %d, max: %d)\n",
+				item.ID, len(item.Value), bufSize, maxSize)
 			_, err := l.buf.Write(append(item.Value, '\n'))
 			if err != nil {
 				l.errorLog("error writing to buffer %s", err)
