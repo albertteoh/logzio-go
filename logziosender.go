@@ -80,7 +80,6 @@ func New(token string, options ...SenderOptionFunc) (*LogzioSender, error) {
 		fullDisk:          false,
 		checkDiskDuration: 5 * time.Second,
 	}
-
 	tlsConfig := &tls.Config{}
 	transport := &http.Transport{
 		Proxy: http.ProxyFromEnvironment,
@@ -295,6 +294,7 @@ func (l *LogzioSender) dequeueUpToMaxBatchSize() int {
 		if item != nil {
 			// NewLine is appended tp item.Value
 			if len(item.Value)+bufSize+1 > maxSize {
+				l.debugLog("logziosender.go: %d exceeds max %d for item %+v\n", len(item.Value)+bufSize+1, maxSize, item.Value)
 				break
 			}
 			bufSize += len(item.Value)
