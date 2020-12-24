@@ -207,7 +207,7 @@ func (l *LogzioSender) Stop() {
 }
 
 func (l *LogzioSender) tryToSendLogs() int {
-	l.debugLog("logziosender.go: sending '%s' over the wire to %s -> repeat %s\n", l.buf.String(), l.url, l.buf.String())
+	l.debugLog("logziosender.go: sending '%s' over the wire to %s\n", l.buf.String(), l.url)
 	resp, err := l.httpClient.Post(l.url, "text/plain", l.buf)
 	if err != nil {
 		l.debugLog("logziosender.go: Error sending logs to %s %s\n", l.url, err)
