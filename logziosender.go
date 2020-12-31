@@ -31,11 +31,11 @@ import (
 )
 
 const (
-	maxSize               = 2000  // 3 mb
+	maxSize               = 3 * 1024 * 1024  // 3 mb
 	sendSleepingBackoff   = time.Second * 2
 	sendRetries           = 4
 	defaultHost           = "https://listener.logz.io:8071"
-	defaultDrainDuration  = 10 * time.Second
+	defaultDrainDuration  = 5 * time.Second
 	defaultDiskThreshold  = 95.0 // represent % of the disk
 	defaultCheckDiskSpace = true
 
